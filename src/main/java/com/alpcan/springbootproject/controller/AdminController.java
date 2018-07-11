@@ -5,17 +5,18 @@ import com.alpcan.springbootproject.model.User;
 import com.alpcan.springbootproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 @Secured("ROLE_ADMIN")
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
 
 
     @Autowired
@@ -24,8 +25,8 @@ public class AdminController {
 @Autowired
     private UserDao userDao;
 
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @RequestMapping("/listUser")
@@ -49,7 +50,8 @@ public class AdminController {
         System.out.println(user.getPassword());
         System.out.println(user.getAddres());
         System.out.println(user.getUserID());
-//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
         userDao.save(user);
         return "redirect:/admin/listUser";
     }

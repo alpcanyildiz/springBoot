@@ -40,8 +40,13 @@
     </div>
 
     <div class="form-group">
-        <label for="Adress">Adress</label>
-        <form:input path="addres" id="addres" class="form-Control"/>
+        <label for="PasswordMatch">Password Match</label>
+        <form:input path="passwordMatch" id="passwordMatch" class="form-Control"/>
+    </div>
+
+    <div class="form-group">
+        <label for="eMail">Adress</label>
+        <form:input path="eMail" id="eMail" class="form-Control"/>
     </div>
 
     <input type="submit" value="Submit"/>
