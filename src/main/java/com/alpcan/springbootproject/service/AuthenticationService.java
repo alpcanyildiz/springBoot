@@ -27,7 +27,7 @@ public class AuthenticationService implements AuthenticationProvider
         String userName = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-
+        System.out.println("Textten gelen password"+password);
 
 
         User user = userService.findByUserUsernameAndPassword(userName, password);
@@ -35,20 +35,20 @@ public class AuthenticationService implements AuthenticationProvider
         if (user == null) {
             throw new UsernameNotFoundException("Login Failed. Password and Username did not match.");
         }
-        else if(!user.isActive()){
+         if(!user.isActive()){
             return null;
         }
-        else if (! bCryptPasswordEncoder.encode(password).equals(user.getPassword())){
-            System.out.println("Did not match.");
-            return null;
-        }
+      //   if (! bCryptPasswordEncoder.matches(password,user.getPassword())){
+      //      System.out.println("Did not match.");
+      //     return null;
+      // }
 
         String roles = user.getRoles()
                 .stream()
                 .map(role -> "ROLE_" + role.getRole())
                 .collect(Collectors.joining(","));
 
-
+        System.out.println("alpcan "+roles);
         return new UsernamePasswordAuthenticationToken(userName, password, AuthorityUtils.commaSeparatedStringToAuthorityList(roles));
     }
 

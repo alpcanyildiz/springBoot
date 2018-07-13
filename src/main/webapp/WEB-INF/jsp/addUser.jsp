@@ -49,6 +49,13 @@
         <form:input path="eMail" id="eMail" class="form-Control"/>
     </div>
 
+
+    <div class="form-group">
+        <label for="roles">ROLES</label>
+        <form:select path="roles" items = "${user.roles}"/>
+    </div>
+
+
     <input type="submit" value="Submit"/>
 
 

@@ -1,11 +1,14 @@
 package com.alpcan.springbootproject.model;
 
+import com.alpcan.springbootproject.dao.RoleDao;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table( name="users" )
@@ -46,6 +49,8 @@ public class User {
 
     private String key;
 
+    private float balanced;
+
 
     @ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER )
     @JoinTable(
@@ -54,6 +59,26 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name="roleID")}
     )
     private Set<Role> roles = new HashSet<Role>();
+
+
+
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    /* public void setRoles(Set<String> roleNames) {
+
+       final Set<Role> roles1 = roleNames.stream()
+               .map(
+               .collect(Collectors.toSet());
+
+       this.roles = roles1;
+    } */
 
     public Long getUserID() {
         return userID;
@@ -135,13 +160,22 @@ public class User {
         this.key = key;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public float getBalanced() {
+        return balanced;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setBalanced(float balanced) {
+        this.balanced = balanced;
     }
+
+    public User( String userUsername,String userName,String userSurname, boolean active,float money){
+        this.userUsername = userUsername;
+        this.userName = userName;
+        this.userSurname = userSurname;
+        this.active = active;
+        this.balanced=money;
+    }
+
 
     public User(String userUsername, String userName, String userSurname, String password, String passwordMatch, String addres, String eMail, boolean active, String key, Set<Role> roles) {
         this.userUsername = userUsername;
