@@ -69,7 +69,6 @@ private UserService userService;
         User user = userDao.findByKey(key);
         user.setActive(true);
 
-
         userDao.saveAndFlush(user);
         return "registrationCompleted";
     }

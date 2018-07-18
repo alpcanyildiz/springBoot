@@ -1,6 +1,7 @@
 package com.alpcan.springbootproject.model;
 
 import com.alpcan.springbootproject.dao.RoleDao;
+import com.alpcan.springbootproject.model.Role;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;

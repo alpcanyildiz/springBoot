@@ -49,6 +49,8 @@ public class AuthenticationService implements AuthenticationProvider
                 .collect(Collectors.joining(","));
 
         System.out.println("alpcan "+roles);
+
+
         return new UsernamePasswordAuthenticationToken(userName, password, AuthorityUtils.commaSeparatedStringToAuthorityList(roles));
     }
 

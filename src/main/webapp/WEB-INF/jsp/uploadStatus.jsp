@@ -17,6 +17,6 @@
 
 <strong> "${message}"</strong>
 
-
+<strong> "${time}"</strong>
 </body>
 </html>

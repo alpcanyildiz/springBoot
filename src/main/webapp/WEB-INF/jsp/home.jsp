@@ -20,7 +20,13 @@
 
 <a href="/admin/listUser"> <strong> Show the User list </strong> </a>
 
+
+
 <h4 class="text-center"><a href="${contextPath}/registration">Create an account</a></h4>
+
+<br> <br>
+
+<a href="${pageContext.request.contextPath}/upload"> Upload File </a>
 
 
 <div class="container">

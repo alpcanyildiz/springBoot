@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Secured("ROLE_ADMIN")
 @Controller
@@ -39,7 +37,6 @@ public class AdminController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
     @RequestMapping("/listUser")
     public String showAllUsers(Model model){
         model.addAttribute("users",userService.findAll());
@@ -56,32 +53,14 @@ public class AdminController {
     @RequestMapping(value = "/addUser",method = RequestMethod.POST)
     public String addUserPost(@ModelAttribute("user") User user, @ModelAttribute("role") Role role){
 
-        System.out.println(user.getUserName());
-        System.out.println(user.getUserSurname());
-        System.out.println(user.getPassword());
-        System.out.println(user.getAddres());
-        System.out.println(user.getUserID());
-
-        //user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-
-
         Set<Role> roles = user.getRoles();
         if (roles == null) {
             roles = new HashSet<Role>();
         }
 
         roles.add(roleDao.findByRole("ADMIN"));
-
-        System.out.println("denemem"+roleDao.findByRole("ADMIN").getRoleID());
-        System.out.println(roleDao.findByRole("ADMIN").getRole());
-
-        System.out.println(roleDao.findByRole("ADMIN").getUsers());
-
-
         user.setRoles(roles);
-
         userDao.save(user);
-
         return "redirect:/admin/listUser";
     }
 
@@ -93,10 +72,6 @@ public class AdminController {
 
         return "redirect:/admin/listUser";
     }
-
-
-
-
 
 
     @RequestMapping("/viewUser")
@@ -115,9 +90,7 @@ public class AdminController {
 
     @RequestMapping(value = "/editUser",method = RequestMethod.POST)
     public String editUserPost(@ModelAttribute("editUser") User user){
-
         userDao.save(user);
-
         return "redirect:/admin/listUser";
     }
 
