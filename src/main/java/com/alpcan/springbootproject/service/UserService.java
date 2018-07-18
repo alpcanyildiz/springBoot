@@ -12,4 +12,12 @@ public interface UserService {
     User findByKey(String key);
 
     User saveUser(User user);
+
+    public void save(User user);
+
+    public void deleteById(Long userID);
+
+    public User getOne(Long userID);
+
+    public void saveAndFlush(User user);
 }

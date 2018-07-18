@@ -4,6 +4,7 @@ import com.alpcan.springbootproject.dao.RoleDao;
 import com.alpcan.springbootproject.dao.UserDao;
 import com.alpcan.springbootproject.model.Role;
 import com.alpcan.springbootproject.model.User;
+import com.alpcan.springbootproject.service.RoleService;
 import com.alpcan.springbootproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,18 +25,15 @@ import java.util.Set;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @Autowired
-    @Qualifier("roleDao")
-    private RoleDao roleDao;
+
 
     @Autowired
     private UserService userService;
 
     @Autowired
-    private UserDao userDao;
+    private RoleService roleService;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @RequestMapping("/listUser")
     public String showAllUsers(Model model){
@@ -58,9 +56,10 @@ public class AdminController {
             roles = new HashSet<Role>();
         }
 
-        roles.add(roleDao.findByRole("ADMIN"));
+        roles.add(roleService.findByRole("ADMIN"));
         user.setRoles(roles);
-        userDao.save(user);
+        userService.save(user);
+
         return "redirect:/admin/listUser";
     }
 
@@ -68,7 +67,7 @@ public class AdminController {
     @RequestMapping(value = "/deleteUser")
     public String deleteUser(@RequestParam("userID") long userID, Model model){
 
-        userDao.deleteById(userID);
+        userService.deleteById(userID);
 
         return "redirect:/admin/listUser";
     }
@@ -76,21 +75,21 @@ public class AdminController {
 
     @RequestMapping("/viewUser")
     public String viewUser(@RequestParam("userID") long userID,Model model){
-        User user = userDao.getOne(userID);
+        User user = userService.getOne(userID);
         model.addAttribute("viewUser",user);
         return "viewUser";
     }
 
     @RequestMapping("/editUser")
     public String editUser(@RequestParam("userID") long userID,Model model){
-        User user = userDao.getOne(userID);
+        User user = userService.getOne(userID);
         model.addAttribute("editUser",user);
         return "editUser";
     }
 
     @RequestMapping(value = "/editUser",method = RequestMethod.POST)
     public String editUserPost(@ModelAttribute("editUser") User user){
-        userDao.save(user);
+        userService.save(user);
         return "redirect:/admin/listUser";
     }
 

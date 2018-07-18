@@ -21,11 +21,8 @@ import javax.validation.Valid;
 public class UserController {
 
 
-@Autowired
-private UserService userService;
-
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @Autowired
     private NotificationService notificationService;
@@ -57,19 +54,17 @@ private UserService userService;
         catch (MailException e){
             System.out.println(e);
         }
-        userDao.save(user);
+        userService.save(user);
         return "redirect:/home";
     }
 
     @RequestMapping("/reg")
     public String registrationKey(@RequestParam("key") String key, Model model){
 
-        System.out.println("E MAİL AKTIVAYONU");
-
-        User user = userDao.findByKey(key);
+        User user = userService.findByKey(key);
         user.setActive(true);
 
-        userDao.saveAndFlush(user);
+        userService.saveAndFlush(user);
         return "registrationCompleted";
     }
 

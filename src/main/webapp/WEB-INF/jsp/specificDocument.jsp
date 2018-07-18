@@ -14,23 +14,16 @@
 </head>
 <body>
 
-<h1>Welcome to Last One Month Account Document Page</h1>
+<h1>  Account Document Page</h1>
 
-
-<form:form method="get" action="accountInformation" >
-
-
-<select id="time" name="time" >
-    <option value="lastday">Last 1 Day</option>
-    <option value="lastweek">Last Week</option>
-    <option value="lastmonth">Last Month</option>
-    <option value="lastyear">Last Year</option>
-    <input name="submit" type="submit" value="submit" />
-</select>
-
-</form:form>
+<strong> Account ID : ${accountInformation}</strong>
 
 <br> <br>
+
+<strong> Documents of : ${timeInformation}</strong>
+
+<br> <br>
+
 <c:forEach var="document" items="${documentbyID}">
     <tr>
 

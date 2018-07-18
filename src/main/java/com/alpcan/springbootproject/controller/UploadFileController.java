@@ -2,9 +2,8 @@ package com.alpcan.springbootproject.controller;
 
 
 import com.alpcan.springbootproject.DataReadAccess.DataAccess;
-import com.alpcan.springbootproject.dao.AccountDao;
-import com.alpcan.springbootproject.dao.UserDao;
 import com.alpcan.springbootproject.entity.BankAccount;
+import com.alpcan.springbootproject.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,12 +23,10 @@ public class UploadFileController {
     @Autowired
     private DataAccess dataAccess;
 
-    @Autowired
-    private UserDao userDao;
-
 
     @Autowired
-    private AccountDao accountDao;
+    private AccountService accountService;
+
 
 
     @GetMapping("/upload")
@@ -38,7 +35,7 @@ public class UploadFileController {
         return "upload";
     }
 
-    @PostMapping("/upload") // //new annotation since 4.3
+    @PostMapping("/upload")
     public String singleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) throws ParseException {
 
@@ -52,13 +49,12 @@ public class UploadFileController {
         List<BankAccount> bankAccountList = dataAccess.readFile(file);
 
         if  (bankAccountList == null){
-
             redirectAttributes.addFlashAttribute("message", "File "+ file.getOriginalFilename() + "is broken");
             return "redirect:/upload";
         }
 
+        accountService.saveAll(bankAccountList);
 
-        accountDao.saveAll(bankAccountList);
 
         //dataAccess.readFile2(file);
 

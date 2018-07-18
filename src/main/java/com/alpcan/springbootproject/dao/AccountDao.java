@@ -13,7 +13,7 @@ public interface AccountDao extends JpaRepository<BankAccount,Long> {
 
     //BankAccount findByFromIDAndDate
 
-    List<BankAccount> findByDateGreaterThanAndFromID(Date date, String fromID);
+    List<BankAccount> findByDateGreaterThanAndFromID (Date date, String fromID);
 
 
 }

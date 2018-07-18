@@ -3,6 +3,7 @@ package com.alpcan.springbootproject.controller;
 
 import com.alpcan.springbootproject.dao.AccountDao;
 import com.alpcan.springbootproject.entity.BankAccount;
+import com.alpcan.springbootproject.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,57 +19,58 @@ import java.util.List;
 
     public class AccountDocumentController {
 
+
     @Autowired
-    private AccountDao accountDao;
+    private AccountService accountService;
 
-    @RequestMapping(value = {"/showJson"})
-    public List<BankAccount> listAll(){
-        return accountDao.findAll();
-    }
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public BankAccount listID(@PathVariable(value = "id") Long id){
+       @RequestMapping("/list")
+        public String listAllDocument(Model model){
 
-        return accountDao.getOne(id);
-
-    }
-
-    @RequestMapping("/list")
-    public String listAllDocument(Model model){
-        model.addAttribute("documents",accountDao.findAll());
-        return "accDocument";
+           model.addAttribute("documents",accountService.findAll());
+           return "accDocument";
     }
 
     @RequestMapping(value = "/listAccount",method = RequestMethod.GET)
     public String listAnAccount(Model model, HttpServletRequest request){
 
-        //@RequestParam("accountID") String id
         String id = request.getParameter("accountID");
         String time = request.getParameter("time");
 
 
-        System.out.println("OKUDUM" + time);
         Date date = findCorrectDate(time);
 
-        System.out.println("Date now : "+date);
-        model.addAttribute("documentbyID",accountDao.findByDateGreaterThanAndFromID(date,id));
+        model.addAttribute("documentbyID",accountService.findByDateGreaterThanAndFromID(date,id));
+        model.addAttribute("accountInformation",id);
+
+        model.addAttribute("timeInformation",time);
         return "specificDocument";
     }
 
-    @RequestMapping("accountInformation")
-    public String listAnAccount(@RequestParam("accountID") String id, Model model,HttpServletRequest request){
-        String id2 = request.getParameter("accountID");
 
+    //   @RequestMapping(value = {"/showJson"})
+    //    public List<BankAccount> listAll(){
+    //      return accountDao.findAll();
+    //    }
 
+    //   @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    //    public BankAccount listID(@PathVariable(value = "id") Long id){
 
-        return "redirect:/account/listAccount";
-    }
+    //        return accountDao.getOne(id);
+
+    //    }
 
 
     public Date findCorrectDate(String time){
 
         Date date = new Date();
-        if (time.equals("lastday")){
+
+        if (time.equals("")){
+            int month=date.getMonth(); //Default
+            month--;
+            date.setMonth(month);
+        }
+        else if (time.equals("lastday")){
             int day= date.getDay();
             day--;
             }
@@ -82,7 +84,7 @@ import java.util.List;
             date.setMonth(month);
 
         }
-            else if (time.equals("lastyear")){
+        else if (time.equals("lastyear")){
             int year=date.getYear(); //Bunun daha iyi bir yöntemi olmalı
             year--;
             date.setYear(year);
