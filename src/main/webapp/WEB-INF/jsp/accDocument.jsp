@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
-  User: yildiza
+  UserEntity: yildiza
   Date: 7/17/2018
   Time: 11:38
   To change this template use File | Settings | File Templates.
@@ -34,6 +34,7 @@
     </tr>
 
 <form:form action="/account/listAccount" method="get">
+
     <input type="text" name="accountID" id="accountID" placeholder="Enter a Account ID" />
 
     <select id="time" name="time" >
@@ -54,7 +55,7 @@
 
 
         <td>${document.balance}</td>
-        <td>${document.toID}</td>
+        <td>${document.toId}</td>
         <td>${document.formattedDate}</td>
 
 

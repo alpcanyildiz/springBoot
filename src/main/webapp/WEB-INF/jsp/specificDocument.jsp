@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
-  User: yildiza
+  UserEntity: yildiza
   Date: 7/17/2018
   Time: 16:24
   To change this template use File | Settings | File Templates.
@@ -29,7 +29,7 @@
 
 
         <td>${document.balance}</td>
-        <td>${document.toID}</td>
+        <td>${document.toId}</td>
         <td>${document.formattedDate}</td>
 
 

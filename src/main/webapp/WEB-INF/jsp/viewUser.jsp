@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Welcome to view user page</title>
+    <title>Welcome to view userEntity page</title>
 </head>
 <body>
 

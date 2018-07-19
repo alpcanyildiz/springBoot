@@ -1,23 +1,24 @@
 package com.alpcan.springbootproject.service;
 
+import com.alpcan.springbootproject.entity.UserEntity;
 import com.alpcan.springbootproject.model.User;
 
 import java.util.List;
 
 public interface UserService {
-    List findAll();
+    List<User> findAll();
 
     User findByUserUsernameAndPassword(String userUsername, String password);
 
-    User findByKey(String key);
+    User findByKey(String key);  //UserEntity'den User'a çevirdim
 
-    User saveUser(User user);
+    UserEntity saveUserAndFlush(User user);
 
-    public void save(User user);
+     void save(User user);
 
-    public void deleteById(Long userID);
+     void deleteById(Long userID);
 
-    public User getOne(Long userID);
+     User getOne(Long userID); //UserEntity'den User'a çevirdim
 
-    public void saveAndFlush(User user);
+    // public void saveAndFlush(UserEntity userEntity);
 }

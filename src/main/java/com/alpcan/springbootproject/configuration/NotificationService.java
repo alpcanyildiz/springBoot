@@ -1,5 +1,6 @@
 package com.alpcan.springbootproject.configuration;
 
+import com.alpcan.springbootproject.entity.UserEntity;
 import com.alpcan.springbootproject.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -7,6 +8,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @Service
@@ -14,7 +16,7 @@ public class NotificationService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendNotification(User user)throws MailException {
+    public void sendNotification(@Valid User user)throws MailException {
 
         String key = generateString();
 

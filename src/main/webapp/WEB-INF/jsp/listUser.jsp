@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
-  User: UlpJuan
+  UserEntity: UlpJuan
   Date: 7.07.2018
   Time: 16:34
   To change this template use File | Settings | File Templates.
@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Welcome to user list</title>
+    <title>Welcome to userEntity list</title>
 </head>
 <body>
 
@@ -41,23 +41,21 @@
             <th>User Addres </th>
 
         </tr>
-        <c:forEach var="user" items="${users}">
+        <c:forEach var="userEntity" items="${userEntities}">
             <tr>
 
 
-                <td>${user.userID}</td>
-                <td>${user.userName}</td>
-                <td>${user.userSurname}</td>
-                <td>${user.password}</td>
-                <td>${user.addres}</td>
-                <td><a href="<spring:url value="viewUser?userID=${user.userID}"/>"
+                <td>${userEntity.userID}</td>
+                <td>${userEntity.userName}</td>
+                <td>${userEntity.userSurname}</td>
+                <td>${userEntity.password}</td>
+                <td>${userEntity.addres}</td>
+                <td><a href="<spring:url value="viewUser/${userEntity.userId}"/>"
                 > View</a>
-                    <a href="<spring:url value="deleteUser?userID=${user.userID}" />"
+                    <a href="<spring:url value="deleteUser/${userEntity.userId}" />"
                     >Delete</a>
-                    <a href="<spring:url value="editUser?userID=${user.userID}" />"
+                    <a href="<spring:url value="editUser/${userEntity.userId}" />"
                     >Edit</a>
-
-                    <a class="button" href="${pageContext.request.contextPath}/personList?deletePerson=${person.personID}" Sil />
                 </td>
                 <br> <br>
             </tr>

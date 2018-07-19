@@ -2,7 +2,7 @@ package com.alpcan.springbootproject.controller;
 
 
 import com.alpcan.springbootproject.configuration.NotificationService;
-import com.alpcan.springbootproject.dao.UserDao;
+import com.alpcan.springbootproject.entity.UserEntity;
 import com.alpcan.springbootproject.model.User;
 import com.alpcan.springbootproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,24 +29,23 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
-      model.addAttribute("userForm", new User());
+      model.addAttribute("userForm", new UserEntity());
 
         return "registration";
     }
 
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@Valid @ModelAttribute("userForm") User user, BindingResult bindingResult,Model model) {
+    public String registration(@Valid @ModelAttribute("userForm") User user, BindingResult bindingResult, Model model) {
 
+//        if (bindingResult.hasErrors()) {
+//            return "registration";
+//        }
 
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-
-        else if (!user.passwordMatched(user.getPassword(),user.getPasswordMatch())){
-            model.addAttribute("errorMsg","Your passwords did not match.");
-            return "registration";
-        }
+    //    else if (!user.passwordMatched(userEntity.getPassword(), userEntity.getPasswordMatch())){
+    //        model.addAttribute("errorMsg","Your passwords did not match.");
+    //        return "registration";
+    //    }
 
         try{
             notificationService.sendNotification(user);
@@ -64,7 +63,7 @@ public class UserController {
         User user = userService.findByKey(key);
         user.setActive(true);
 
-        userService.saveAndFlush(user);
+        userService.save(user);
         return "registrationCompleted";
     }
 

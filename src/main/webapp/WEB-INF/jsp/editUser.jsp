@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
-  User: UlpJuan
+  UserEntity: UlpJuan
   Date: 8.07.2018
   Time: 21:48
   To change this template use File | Settings | File Templates.
@@ -17,7 +17,7 @@
 
 <form:form action="${pageContext.request.contextPath}/admin/editUser" method="post" modelAttribute="editUser">
 
-    <form:hidden path="userID" id="userID" value="${editUser.userID}" />
+    <form:hidden path="userId" id="userId" value="${editUser.userId}" />
 
     <div class="form-group">
         <label for="name">Name</label>

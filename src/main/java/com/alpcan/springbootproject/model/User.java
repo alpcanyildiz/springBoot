@@ -1,34 +1,20 @@
 package com.alpcan.springbootproject.model;
 
-import com.alpcan.springbootproject.dao.RoleDao;
-import com.alpcan.springbootproject.model.Role;
+import com.alpcan.springbootproject.entity.RoleEntity;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Transient;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-@Entity
-@Table( name="users" )
 public class User {
 
-
-    public User(){
-
-    }
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userID")
-    private Long userID;
+    private Long userId;
 
     //  @NotNull(message = "Username text are must not be empty !")
     private String userUsername;
 
 
-   // @NotNull(message = "Name text are must not be empty !")
+    // @NotNull(message = "Name text are must not be empty !")
     private String userName;
     //  @NotNull(message = "Surname text are must not be empty !")
     private String userSurname;
@@ -37,7 +23,6 @@ public class User {
     private String password;
 
     //  @NotNull(message = "Please choose a password")
-    @Transient
     private String passwordMatch;
 
     // @NotNull(message = "Give adress please")
@@ -50,43 +35,30 @@ public class User {
 
     private String key;
 
-    private float balanced;
+    private Set<Role> role ;
 
 
-    @ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER )
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = {@JoinColumn(name="userID")},
-            inverseJoinColumns = {@JoinColumn(name="roleID")}
-    )
-    private Set<Role> roles = new HashSet<Role>();
+    public User(){
+        role = new HashSet<>();
 
-
-
-
-    public Set<Role> getRoles() {
-        return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+
+    public Set<Role> getRole() {
+        return role;
     }
 
-    /* public void setRoles(Set<String> roleNames) {
-
-       final Set<Role> roles1 = roleNames.stream()
-               .map(
-               .collect(Collectors.toSet());
-
-       this.roles = roles1;
-    } */
-
-    public Long getUserID() {
-        return userID;
+    public void setRole(Set<Role> role) {
+        this.role = role;
     }
 
-    public void setUserID(Long userID) {
-        this.userID = userID;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+
+    public Long getUserId() {
+        return userId;
     }
 
     public String getUserUsername() {
@@ -160,39 +132,4 @@ public class User {
     public void setKey(String key) {
         this.key = key;
     }
-
-    public float getBalanced() {
-        return balanced;
-    }
-
-    public void setBalanced(float balanced) {
-        this.balanced = balanced;
-    }
-
-    public User( String userUsername,String userName,String userSurname, boolean active,float money){
-        this.userUsername = userUsername;
-        this.userName = userName;
-        this.userSurname = userSurname;
-        this.active = active;
-        this.balanced=money;
-    }
-
-
-    public User(String userUsername, String userName, String userSurname, String password, String passwordMatch, String addres, String eMail, boolean active, String key, Set<Role> roles) {
-        this.userUsername = userUsername;
-        this.userName = userName;
-        this.userSurname = userSurname;
-        this.password = password;
-        this.passwordMatch = passwordMatch;
-        this.addres = addres;
-        this.eMail = eMail;
-        this.active = active;
-        this.key = key;
-        this.roles = roles;
-    }
-
-    public boolean passwordMatched(String p1, String p2){
-        return p1.equals(p2);
-    }
 }
-

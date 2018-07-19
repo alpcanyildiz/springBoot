@@ -9,13 +9,13 @@ import java.util.Date;
 
 @Entity
 
-public class BankAccount {
+public class BankAccountEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String fromID;
-    private String toID;
+    private String fromId;
+    private String toId;
     private double balance;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
@@ -27,32 +27,16 @@ public class BankAccount {
     private String formattedDate;
 
 
-    public BankAccount() {
+    public BankAccountEntity() {
 
     }
 
-    public BankAccount(Long fromID, String toID, double balance, Date date) {
-        this.id = fromID;
-        this.toID = toID;
+
+    public BankAccountEntity(String fromId, String toId, double balance, Date date, String formattedDate) {
+        this.fromId = fromId;
+        this.toId = toId;
         this.balance = balance;
         this.date = date;
-    }
-
-    public String getFromID() {
-        return fromID;
-    }
-
-    public void setFromID(String fromID) {
-        this.fromID = fromID;
-    }
-
-
-
-    public String getFormattedDate() {
-        return formattedDate;
-    }
-
-    public void setFormattedDate(String formattedDate) {
         this.formattedDate = formattedDate;
     }
 
@@ -64,14 +48,20 @@ public class BankAccount {
         this.id = id;
     }
 
-
-
-    public String getToID() {
-        return toID;
+    public String getFromId() {
+        return fromId;
     }
 
-    public void setToID(String toID) {
-        this.toID = toID;
+    public void setFromId(String fromId) {
+        this.fromId = fromId;
+    }
+
+    public String getToId() {
+        return toId;
+    }
+
+    public void setToId(String toId) {
+        this.toId = toId;
     }
 
     public double getBalance() {
@@ -88,5 +78,13 @@ public class BankAccount {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getFormattedDate() {
+        return formattedDate;
+    }
+
+    public void setFormattedDate(String formattedDate) {
+        this.formattedDate = formattedDate;
     }
 }

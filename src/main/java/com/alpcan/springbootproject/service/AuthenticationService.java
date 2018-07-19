@@ -1,5 +1,6 @@
 package com.alpcan.springbootproject.service;
 
+import com.alpcan.springbootproject.entity.UserEntity;
 import com.alpcan.springbootproject.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -27,10 +28,8 @@ public class AuthenticationService implements AuthenticationProvider
         String userName = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        System.out.println("Textten gelen password"+password);
 
-
-        User user = userService.findByUserUsernameAndPassword(userName, password);
+        User user= userService.findByUserUsernameAndPassword(userName, password);
 
         if (user == null) {
             throw new UsernameNotFoundException("Login Failed. Password and Username did not match.");
@@ -38,17 +37,17 @@ public class AuthenticationService implements AuthenticationProvider
          if(!user.isActive()){
             return null;
         }
-      //   if (! bCryptPasswordEncoder.matches(password,user.getPassword())){
+      //   if (! bCryptPasswordEncoder.matches(password,userEntity.getPassword())){
       //      System.out.println("Did not match.");
       //     return null;
       // }
 
-        String roles = user.getRoles()
+        String roles = user.getRole()
                 .stream()
                 .map(role -> "ROLE_" + role.getRole())
                 .collect(Collectors.joining(","));
 
-        System.out.println("alpcan "+roles);
+
 
 
         return new UsernamePasswordAuthenticationToken(userName, password, AuthorityUtils.commaSeparatedStringToAuthorityList(roles));

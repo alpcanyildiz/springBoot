@@ -1,8 +1,9 @@
 package com.alpcan.springbootproject.controller;
 
 
-import com.alpcan.springbootproject.DataReadAccess.DataAccess;
-import com.alpcan.springbootproject.entity.BankAccount;
+import com.alpcan.springbootproject.datareadaccess.DataAccess;
+import com.alpcan.springbootproject.entity.BankAccountEntity;
+import com.alpcan.springbootproject.model.BankAccount;
 import com.alpcan.springbootproject.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

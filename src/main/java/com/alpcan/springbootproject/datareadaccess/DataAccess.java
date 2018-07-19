@@ -1,8 +1,8 @@
-package com.alpcan.springbootproject.DataReadAccess;
+package com.alpcan.springbootproject.datareadaccess;
 
-import com.alpcan.springbootproject.dao.AccountDao;
-import com.alpcan.springbootproject.entity.BankAccount;
-import com.alpcan.springbootproject.model.User;
+import com.alpcan.springbootproject.model.BankAccount;
+import com.alpcan.springbootproject.repository.AccountRepository;
+import com.alpcan.springbootproject.entity.BankAccountEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,7 +23,7 @@ public class DataAccess {
 
 
     @Autowired
-    private AccountDao accountDao;
+    private AccountRepository accountRepository;
 
     public List<BankAccount> readFile (MultipartFile file) throws ParseException {
 
@@ -38,14 +38,14 @@ public class DataAccess {
             br = new BufferedReader(new InputStreamReader(is));
             line = br.readLine();
             while ((line = br.readLine()) != null) {
+
                 String[] lineArray = line.split(",");
-                //User user = new User(lineArray[0],lineArray[1],lineArray[2],true,Float.parseFloat(lineArray[3]));
 
                 BankAccount bankAccount = new BankAccount();
 
 
-                bankAccount.setFromID(lineArray[0]);
-                bankAccount.setToID(lineArray[1]);
+                bankAccount.setFromId(lineArray[0]);
+                bankAccount.setToId(lineArray[1]);
                 bankAccount.setBalance(Float.parseFloat(lineArray[2]));
 
                 Date date = parser.parse(lineArray[3]);
@@ -86,18 +86,18 @@ public class DataAccess {
             line = br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] lineArray = line.split(",");
-                //User user = new User(lineArray[0],lineArray[1],lineArray[2],true,Float.parseFloat(lineArray[3]));
+                //UserEntity user = new UserEntity(lineArray[0],lineArray[1],lineArray[2],true,Float.parseFloat(lineArray[3]));
 
-                BankAccount bankAccount = new BankAccount();
-                //bankAccount.setFromID(Long.parseLong(lineArray[0]));
-                bankAccount.setToID(lineArray[1]);
-                bankAccount.setBalance(Float.parseFloat(lineArray[2]));
+                BankAccountEntity bankAccountEntity = new BankAccountEntity();
+                //bankAccountEntity.setFromID(Long.parseLong(lineArray[0]));
+                bankAccountEntity.setToId(lineArray[1]);
+                bankAccountEntity.setBalance(Float.parseFloat(lineArray[2]));
 
 
                 Date date = parser.parse(lineArray[3]);
-                bankAccount.setDate(date);
+                bankAccountEntity.setDate(date);
 
-                accountDao.save(bankAccount);
+                accountRepository.save(bankAccountEntity);
 
             }
 

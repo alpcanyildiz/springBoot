@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
-  User: UlpJuan
+  UserEntity: UlpJuan
   Date: 8.07.2018
   Time: 20:52
   To change this template use File | Settings | File Templates.
@@ -20,7 +20,7 @@
 
 </div>
 
-<form:form action="${pageContext.request.contextPath}/admin/addUser/" method="post" modelAttribute="user">
+<form:form action="${pageContext.request.contextPath}/admin/addUser/" method="post" modelAttribute="userEntity">
 
     <div class="form-group">
         <label for="UserName">Name</label>
@@ -47,12 +47,6 @@
     <div class="form-group">
         <label for="eMail">Adress</label>
         <form:input path="eMail" id="eMail" class="form-Control"/>
-    </div>
-
-
-    <div class="form-group">
-        <label for="roles">ROLES</label>
-        <form:select path="roles" items = "${user.roles}"/>
     </div>
 
 

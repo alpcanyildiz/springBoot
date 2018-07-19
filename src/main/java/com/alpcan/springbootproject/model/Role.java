@@ -1,30 +1,37 @@
 package com.alpcan.springbootproject.model;
 
+import com.alpcan.springbootproject.entity.UserEntity;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name="roles")
 public class Role {
 
-    @Id
-    @GeneratedValue
-    private Long roleID;
+    private Long roleId;
 
     private String role;
 
-    @ManyToMany( mappedBy = "roles")
-    private Set<User> users = new HashSet<User>();
+    private Set<User> user;
 
-    public Role(){}
-    public Long getRoleID() {
-        return roleID;
+    public Role(){
+        user = new HashSet<>();
     }
 
-    public void setRoleID(Long roleID) {
-        this.roleID = roleID;
+
+    public Set<User> getUser() {
+        return user;
+    }
+
+    public void setUser(Set<User> user) {
+        this.user = user;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
     public String getRole() {
@@ -35,12 +42,5 @@ public class Role {
         this.role = role;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
 
 }

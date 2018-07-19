@@ -1,5 +1,7 @@
 package com.alpcan.springbootproject.model;
 
+import com.alpcan.springbootproject.entity.RoleEntity;
+import com.alpcan.springbootproject.entity.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,10 +12,10 @@ import java.util.Set;
 
 public class UserDetailsImpl implements UserDetails {
 
-    User user;
+    UserEntity userEntity;
 
-    public UserDetailsImpl(User user) {
-        this.user = user;
+    public UserDetailsImpl(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
 
@@ -22,22 +24,22 @@ public class UserDetailsImpl implements UserDetails {
 
         Collection<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
 
-        Set<Role> roles = user.getRoles();
+        Set<RoleEntity> roleEntities = userEntity.getRoleEntities();
 
-        for( Role role : roles ) {
-            authorities.add( new SimpleGrantedAuthority(role.getRole()) );
+        for( RoleEntity roleEntity : roleEntities) {
+            authorities.add( new SimpleGrantedAuthority(roleEntity.getRole()) );
         }
         return authorities;
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return userEntity.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getUserUsername();
+        return userEntity.getUserUsername();
     }
 
     @Override
