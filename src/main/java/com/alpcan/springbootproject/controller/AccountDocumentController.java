@@ -49,7 +49,7 @@ import java.util.List;
         List<BankAccount> accounts = accountService.findByDateGreaterThanAndFromId(date, request.getAccountID());
 
         if(accounts==null){
-            //Burda throw Excp. atılabilir
+            //Burda throw Excp.
             System.out.println();
         }
 

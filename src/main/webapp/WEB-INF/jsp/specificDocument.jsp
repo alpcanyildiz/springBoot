@@ -20,6 +20,8 @@
 
 <br> <br>
 
+
+
 <strong> Documents of : ${timeInformation}</strong>
 
 <br> <br>
@@ -29,6 +31,7 @@
 
 
         <td>${document.balance}</td>
+        <td>${document.fromId}</td>
         <td>${document.toId}</td>
         <td>${document.formattedDate}</td>
 

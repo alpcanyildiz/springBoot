@@ -49,15 +49,24 @@
 
 </form:form>
 
+    <table>
 
+        <tr>
+
+            <th>Sender ID </th>
+            <th> Receiver ID</th>
+            <th>Price </th>
+            <th>Date</th>
+
+
+        </tr>
 <c:forEach var="document" items="${documents}">
     <tr>
 
-
-        <td>${document.balance}</td>
+        <td>${document.fromId}</td>
         <td>${document.toId}</td>
+        <td>${document.balance}</td>
         <td>${document.formattedDate}</td>
-
 
         <br> <br>
     </tr>
