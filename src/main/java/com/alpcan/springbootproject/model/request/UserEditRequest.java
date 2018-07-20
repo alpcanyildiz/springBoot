@@ -2,12 +2,14 @@ package com.alpcan.springbootproject.model.request;
 
 import com.alpcan.springbootproject.model.Role;
 
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 public class UserEditRequest {
 
     private String userSurname;
 
+    @NotNull(message = "Must not empty")
     private String userName;
     private String password;
 

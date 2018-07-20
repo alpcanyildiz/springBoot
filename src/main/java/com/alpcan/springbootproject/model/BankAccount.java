@@ -1,5 +1,6 @@
 package com.alpcan.springbootproject.model;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 public class BankAccount {
@@ -7,7 +8,7 @@ public class BankAccount {
     private String fromId;
     private String toId;
     private double balance;
-    private Date date;
+    private ZonedDateTime date;
     private String formattedDate;
 
     public BankAccount() {
@@ -54,11 +55,11 @@ public class BankAccount {
         this.balance = balance;
     }
 
-    public Date getDate() {
+    public ZonedDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(ZonedDateTime date) {
         this.date = date;
     }
 }

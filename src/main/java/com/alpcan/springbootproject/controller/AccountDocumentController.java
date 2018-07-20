@@ -44,9 +44,14 @@ import java.util.List;
     @RequestMapping(value = "/listAccount",method = RequestMethod.GET)
     public String listAnAccount(Model model, GetAccountsRequest request){
 
-        Date date = findCorrectDate(request.getTime());
+        ZonedDateTime date = findCorrectDate(request.getTime());
 
         List<BankAccount> accounts = accountService.findByDateGreaterThanAndFromId(date, request.getAccountID());
+
+        if(accounts==null){
+            //Burda throw Excp. atılabilir
+            System.out.println();
+        }
 
         model.addAttribute("documentbyID", accounts);
         model.addAttribute("accountInformation", request.getAccountID());
@@ -57,54 +62,24 @@ import java.util.List;
     }
 
 
-    //   @RequestMapping(value = {"/showJson"})
-    //    public List<BankAccountEntity> listAll(){
-    //      return accountDao.findAll();
-    //    }
 
-    //   @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    //    public BankAccountEntity listID(@PathVariable(value = "id") Long id){
+        private ZonedDateTime findCorrectDate(String time){
 
-    //        return accountDao.getOne(id);
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
 
-    //    }
-
-
-   // ZonedDateTime
-
-    public Date findCorrectDate(String time){
-
-        //ZonedDateTime date = ZonedDateTime.now();
-
-        Date date = new Date();
-        //date.minusHours(2)
-
-        if (time.equals("")){
-            int month=date.getMonth(); //Default
-            month--;
-            date.setMonth(month);
-        }
-        else if (time.equals("lastday")){
-            int day= date.getDay();
-            day--;
+            switch (time) {
+                case "":
+                    return zonedDateTime.minusMonths(1);
+                case "lastday":
+                    return zonedDateTime.minusDays(1);
+                case "lastweek":
+                    return zonedDateTime.minusWeeks(1);
+                case "lastmonth":
+                    return zonedDateTime.minusMonths(1);
+                case "lastyear":
+                    return zonedDateTime.minusYears(1);
             }
-        else if (time.equals("lastweek")){
-            int day= date.getDay();
-
-        }
-        else if (time.equals("lastmonth")){
-            int month=date.getMonth(); //Bunun daha iyi bir yöntemi olmalı
-            month--;
-            date.setMonth(month);
-
-        }
-        else if (time.equals("lastyear")){
-            int year=date.getYear(); //Bunun daha iyi bir yöntemi olmalı
-            year--;
-            date.setYear(year);
-        }
-
-        return date;
+        return zonedDateTime;
     }
 
 }

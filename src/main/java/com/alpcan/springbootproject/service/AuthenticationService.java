@@ -1,6 +1,6 @@
 package com.alpcan.springbootproject.service;
 
-import com.alpcan.springbootproject.entity.UserEntity;
+
 import com.alpcan.springbootproject.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;

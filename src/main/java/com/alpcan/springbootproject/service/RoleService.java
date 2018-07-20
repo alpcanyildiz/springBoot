@@ -6,5 +6,5 @@ import com.alpcan.springbootproject.model.Role;
 
 public interface RoleService {
 
-    Role findByRole(String role);
+    RoleEntity findByRole(String role);
 }

@@ -14,6 +14,10 @@ import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +34,11 @@ public class DataAccess {
         BufferedReader br;
         List<BankAccount> bankAccountList = new ArrayList<>();
 
-        SimpleDateFormat parser =  new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        //SimpleDateFormat parser =  new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String time ="31-12-2018 23:00:15";
+
 
         try {
             String line;
@@ -48,10 +56,11 @@ public class DataAccess {
                 bankAccount.setToId(lineArray[1]);
                 bankAccount.setBalance(Float.parseFloat(lineArray[2]));
 
-                Date date = parser.parse(lineArray[3]);
-                bankAccount.setDate(date);
 
-                bankAccount.setFormattedDate(parser.format(date));
+                ZonedDateTime date = LocalDateTime.parse(lineArray[3],dtf).atZone(ZoneId.of("Asia/Istanbul"));
+
+                bankAccount.setDate(date);
+                bankAccount.setFormattedDate(dtf.format(date));
 
                 bankAccountList.add(bankAccount);
 
@@ -75,9 +84,8 @@ public class DataAccess {
         BufferedReader br;
 
 
-        SimpleDateFormat parser =  new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
-        DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
         try {
             String line;
@@ -93,9 +101,12 @@ public class DataAccess {
                 bankAccountEntity.setToId(lineArray[1]);
                 bankAccountEntity.setBalance(Float.parseFloat(lineArray[2]));
 
+                ZonedDateTime date = LocalDateTime.parse(lineArray[3],dtf).atZone(ZoneId.of("Asia/Istanbul"));
 
-                Date date = parser.parse(lineArray[3]);
                 bankAccountEntity.setDate(date);
+                bankAccountEntity.setFormattedDate(dtf.format(date));
+
+
 
                 accountRepository.save(bankAccountEntity);
 

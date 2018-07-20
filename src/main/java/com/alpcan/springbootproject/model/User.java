@@ -1,8 +1,7 @@
 package com.alpcan.springbootproject.model;
 
-import com.alpcan.springbootproject.entity.RoleEntity;
-
-import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,11 +9,11 @@ public class User {
 
     private Long userId;
 
-    //  @NotNull(message = "Username text are must not be empty !")
+    //@NotNull(message = "Username text are must not be empty !")
     private String userUsername;
 
 
-    // @NotNull(message = "Name text are must not be empty !")
+    @NotEmpty(message = "Name must not be empty !")
     private String userName;
     //  @NotNull(message = "Surname text are must not be empty !")
     private String userSurname;

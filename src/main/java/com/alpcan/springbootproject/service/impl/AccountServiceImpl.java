@@ -7,8 +7,8 @@ import com.alpcan.springbootproject.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -19,24 +19,21 @@ public class AccountServiceImpl implements AccountService {
     AccountRepository accountRepository;
 
     @Override
-    public List<BankAccount> findByDateGreaterThanAndFromId(Date date, String fromId) {
+    public List<BankAccount> findByDateGreaterThanAndFromId(ZonedDateTime date, String fromId) {
 
         List<BankAccountEntity> bankAccountEntityList = accountRepository.findByDateGreaterThanAndFromId(date,fromId);
-
-        System.out.println(bankAccountEntityList.size());
-
-        System.out.println(date);
-        System.out.println(fromId);
 
 
         List<BankAccount> bankAccountList = new ArrayList<BankAccount>();
         for (BankAccountEntity bankAccountEntity : bankAccountEntityList){
+
             BankAccount bankAccount = new BankAccount();
 
             bankAccount.setBalance(bankAccountEntity.getBalance());
             bankAccount.setDate(bankAccountEntity.getDate());
             bankAccount.setFromId(bankAccountEntity.getFromId());
             bankAccount.setToId(bankAccountEntity.getToId());
+
             bankAccount.setId(bankAccountEntity.getId());
             bankAccount.setFormattedDate(bankAccountEntity.getFormattedDate());
             bankAccountList.add(bankAccount);
@@ -72,6 +69,7 @@ public class AccountServiceImpl implements AccountService {
         List<BankAccountEntity> bankAccountEntityList = new ArrayList<BankAccountEntity>();
 
         for (BankAccount bankAccount : bankAccountList){
+
 
             BankAccountEntity bankAccountEntity = new BankAccountEntity();
             bankAccountEntity.setFromId(bankAccount.getFromId());

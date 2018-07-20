@@ -9,6 +9,7 @@
    @Repository
    @Qualifier("roleDao")
       public interface RoleRepository extends JpaRepository <RoleEntity,Long>{
-         Role findByRole(String role);
+      //Role findByRole(String role);
+      RoleEntity findByRole(String role);
 
     }

@@ -4,7 +4,7 @@ import com.alpcan.springbootproject.entity.BankAccountEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 
@@ -12,7 +12,7 @@ import java.util.List;
 public interface AccountRepository extends JpaRepository<BankAccountEntity,Long> {
 
 
-    List<BankAccountEntity> findByDateGreaterThanAndFromId (Date date, String fromId);
+    List<BankAccountEntity> findByDateGreaterThanAndFromId (ZonedDateTime date, String fromId);
 
 
 }

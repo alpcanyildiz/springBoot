@@ -3,7 +3,6 @@ package com.alpcan.springbootproject.controller;
 
 import com.alpcan.springbootproject.model.User;
 import com.alpcan.springbootproject.model.request.UserEditRequest;
-import com.alpcan.springbootproject.repository.UserRepository;
 import com.alpcan.springbootproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +16,6 @@ public class UserRestController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserRepository userRepository;
 
     @RequestMapping(value="/user",method = RequestMethod.GET)
     public List<User> listAll(){

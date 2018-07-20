@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Entity
@@ -19,10 +20,9 @@ public class BankAccountEntity {
     private double balance;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-    private java.util.Date date;
+    private ZonedDateTime date;
 
     private String formattedDate;
 
@@ -31,13 +31,20 @@ public class BankAccountEntity {
 
     }
 
-
-    public BankAccountEntity(String fromId, String toId, double balance, Date date, String formattedDate) {
+    public BankAccountEntity(String fromId, String toId, double balance, ZonedDateTime date, String formattedDate) {
         this.fromId = fromId;
         this.toId = toId;
         this.balance = balance;
         this.date = date;
         this.formattedDate = formattedDate;
+    }
+
+    public ZonedDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(ZonedDateTime date) {
+        this.date = date;
     }
 
     public Long getId() {
@@ -72,13 +79,6 @@ public class BankAccountEntity {
         this.balance = balance;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 
     public String getFormattedDate() {
         return formattedDate;

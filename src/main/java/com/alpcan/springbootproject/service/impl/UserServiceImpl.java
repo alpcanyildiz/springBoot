@@ -104,6 +104,25 @@ public class UserServiceImpl implements UserService {
         userEntity.setActive(user.isActive());
         userEntity.setKey(user.getKey());
         // userEntity.setRoleEntities(user.getRole());
+
+        Set<Role> roleSet = userEntity.getRoleEntities()
+                .stream()
+                .map(
+                        e -> {
+                            Role role = new Role();
+                            role.setRole(e.getRole());
+                            role.setRole(e.getRole());
+
+                           // role.setUser(e.getUserEntities());
+
+                            return role;
+                        }
+                ).collect(Collectors.toSet());
+
+        user.setRole(roleSet);
+
+
+
         userEntity.setAddres(user.getAddres());
         userEntity.seteMail(user.geteMail());
         userEntity.setPassword(user.getPassword());
